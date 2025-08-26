@@ -65,7 +65,6 @@ more_employees.info()
 ## Task 4
 
 
-## Task 4 – Clean dirty data
 
 # 1. Load the dirty data
 dirty_data = pd.read_csv('dirty_data.csv')
@@ -74,7 +73,7 @@ print("Original dirty data:\n", dirty_data)
 # 2. Make a copy for cleaning
 clean_data = dirty_data.copy()
 
-# 3. Remove duplicate rows
+# 3 Remove duplicate rows
 clean_data = clean_data.drop_duplicates()
 print("\nAfter dropping duplicates:\n", clean_data)
 
@@ -93,7 +92,7 @@ clean_data['Salary'] = clean_data['Salary'].fillna(clean_data['Salary'].median()
 # 7. Convert Hire Date to datetime safely
 clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'].astype(str).str.strip(), errors='coerce')
 
-# ✅ Fill missing/invalid dates with a default date (Option 1)
+#Handle missing/invalid Hire Date
 clean_data['Hire Date'] = clean_data['Hire Date'].fillna(pd.Timestamp('2000-01-01'))
 
 # 8. Clean Name and Department safely
