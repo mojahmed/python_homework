@@ -65,41 +65,42 @@ more_employees.info()
 ## Task 4
 
 
-# 1 Load the dirty data
-dirty_data = pd.read_csv('dirty_data.csv')
-print(dirty_data)
+## Task 4 – Clean dirty data
 
-# 2 a copy for clean
+# 1. Load the dirty data
+dirty_data = pd.read_csv('dirty_data.csv')
+print("Original dirty data:\n", dirty_data)
+
+# 2. Make a copy for cleaning
 clean_data = dirty_data.copy()
 
-# 3 To Remove any duplicate rows
+# 3. Remove duplicate rows
 clean_data = clean_data.drop_duplicates()
-print(clean_data)
+print("\nAfter dropping duplicates:\n", clean_data)
 
-# 4 Convert Age to numeric and handle missing values
+# 4. Convert Age to numeric, coerce errors
 clean_data['Age'] = pd.to_numeric(clean_data['Age'], errors='coerce')
-print(clean_data)
 
-# 5  Convert Salary to numeric, replace 'unknown' and 'n/a' with NaN first
-clean_data['Salary'] = clean_data['Salary'].str.strip()# rremoves spaces
+# 5. Clean Salary column safely
+clean_data['Salary'] = clean_data['Salary'].astype(str).str.strip()   # convert to string first
 clean_data['Salary'] = clean_data['Salary'].replace(['unknown', 'n/a'], np.nan)
-clean_data['Salary'] = pd.to_numeric(clean_data['Salary'])
-print(clean_data)
+clean_data['Salary'] = pd.to_numeric(clean_data['Salary'], errors='coerce')
 
-# 6  Fill missing values by using fillna method 
+# 6. Fill missing values
 clean_data['Age'] = clean_data['Age'].fillna(clean_data['Age'].mean())
 clean_data['Salary'] = clean_data['Salary'].fillna(clean_data['Salary'].median())
-print(clean_data)
 
-# 7 Convert Hire Date to datetime format
-clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'].str.strip(), errors='coerce')
-print(clean_data)
+# 7. Convert Hire Date to datetime safely
+clean_data['Hire Date'] = pd.to_datetime(clean_data['Hire Date'].astype(str).str.strip(), errors='coerce')
 
-# 8 Strip extra spaces and make Name and Department uppercase
-clean_data['Name'] = clean_data['Name'].str.strip().str.upper()
-clean_data['Department'] = clean_data['Department'].str.strip().str.upper()
+# ✅ Fill missing/invalid dates with a default date (Option 1)
+clean_data['Hire Date'] = clean_data['Hire Date'].fillna(pd.Timestamp('2000-01-01'))
 
-print(clean_data)
+# 8. Clean Name and Department safely
+clean_data['Name'] = clean_data['Name'].astype(str).str.strip().str.upper()
+clean_data['Department'] = clean_data['Department'].astype(str).str.strip().str.upper()
+
+print("\nCleaned data:\n", clean_data)
 
 
 
