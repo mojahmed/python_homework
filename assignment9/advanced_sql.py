@@ -83,8 +83,7 @@ def main():
             cursor.execute("""
             SELECT product_id 
             FROM products 
-            GROUP BY product_name 
-            ORDER BY MIN(price) ASC 
+           ORDER BY price ASC 
             LIMIT 5
             """)
             product_ids = [row[0] for row in cursor.fetchall()]
