@@ -1,0 +1,9 @@
+* Restricted Sections:
+Some crawlers are blocked from the whole site (like MJ12bot, UbiCrawler, DOC, Zao, SiteSnagger, WebStripper, etc.),
+
+*Specific Rules:
+Yes, certain bots are blocked, others like IsraBot are allowed.
+
+# Reflection:
+Websites use robots.txt to guide crawlers on what they can and cannot access.
+ This helps reduce server overload and protects sensitive or less useful pages from being copied. Following robots.txt shows respect for the website and makes web scraping more ethical.
