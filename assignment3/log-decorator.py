@@ -1,7 +1,7 @@
 # Task 1
 
 import logging
-ß
+
 # open("decorator.log", "w").close()
 
 # Set up logger
@@ -12,22 +12,13 @@ logger.addHandler(logging.FileHandler("./decorator.log", "a"))
 # Decorator that logs function name, and parameters, 
 def logger_decorator(func):
     def wrapper(*args, **kwargs):
-        if args:
-            pos_params = list(args)
-        else:
-            pos_params = "none"
-
-        if kwargs:
-            kw_params = kwargs
-        else:
-            kw_params = "none"
-
         result = func(*args, **kwargs)
+        
 
         log_message = (
             f"function: {func.__name__}\n"
-            f"positional parameters: {pos_params}\n"
-            f"keyword parameters: {kw_params}\n"
+            f"positional parameters: {args}\n"
+            f"keyword parameters: {kwargs}\n"
             f"return: {result}\n"
         )
 

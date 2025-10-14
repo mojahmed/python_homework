@@ -1,9 +1,10 @@
-#Task 6 
+# Task 6
 
 class TictactoeException(Exception):
     def __init__(self, message):
         self.message = message
         super().__init__(message)
+
 
 class Board:
     valid_moves = [
@@ -68,10 +69,15 @@ class Board:
         # Game not over
         return (False, f"{self.turn}'s turn.")
 
+
 # --- Game runner ---
 if __name__ == "__main__":
     board = Board()
     print("Welcome to TicTacToe!")
+    print("Valid moves are:")
+    print(", ".join(Board.valid_moves))  #  Added for usability as my mentor feedback
+    print()
+
     while True:
         print(board)
         status, message = board.whats_next()

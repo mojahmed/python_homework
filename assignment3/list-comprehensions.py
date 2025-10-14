@@ -1,16 +1,19 @@
 #Task 3
-
+import os
 import csv
 
-# Read the CSV file
-with open('../csv/employees.csv', newline='') as file:
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+csv_path = os.path.join(script_dir, '../csv/employees.csv')
+
+with open(csv_path, newline='') as file:
     reader = csv.reader(file)
     data = list(reader) # read csv file
 
 
 employees = data[1:]
 
-full_names = [row[1] + " " + row[2] for row in employees]
+full_names = [row[1] + " " + row[2] for row in employees if len(row) >= 3]
 print("All Names:", full_names)
 
 # to Filter names that contain the letter "e" by 

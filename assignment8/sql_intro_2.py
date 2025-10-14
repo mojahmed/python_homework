@@ -6,18 +6,23 @@ import pandas as pd
 conn = sqlite3.connect("../db/lesson.db")
 print("Connected to database.\n")
 
-# Create tables and add sample data
+# Create tables
 c = conn.cursor()
 c.execute("CREATE TABLE IF NOT EXISTS products (product_id INTEGER PRIMARY KEY, product_name TEXT, price REAL)")
 c.execute("CREATE TABLE IF NOT EXISTS line_items (line_item_id INTEGER PRIMARY KEY, order_id INTEGER, product_id INTEGER, quantity INTEGER, FOREIGN KEY(product_id) REFERENCES products(product_id))")
 
+# Clear old data
+c.execute("DELETE FROM line_items")
+c.execute("DELETE FROM products")
+
+# Insert sample data
 products = [("Laptop", 1000), ("Smartphone", 500), ("Tablet", 300)]
 for p in products:
-    c.execute("INSERT OR IGNORE INTO products (product_name, price) VALUES (?, ?)", p)
+    c.execute("INSERT INTO products (product_name, price) VALUES (?, ?)", p)
 
 line_items = [(1, 1, 2), (2, 2, 1), (3, 3, 3)]
 for li in line_items:
-    c.execute("INSERT OR IGNORE INTO line_items (order_id, product_id, quantity) VALUES (?, ?, ?)", li)
+    c.execute("INSERT INTO line_items (order_id, product_id, quantity) VALUES (?, ?, ?)", li)
 
 conn.commit()
 print("Tables and data added.\n")
@@ -28,7 +33,6 @@ SELECT line_items.line_item_id, line_items.quantity, line_items.product_id, prod
 FROM line_items
 JOIN products ON line_items.product_id = products.product_id
 """, conn)
-
 
 print("First 5 rows:")
 print(df.head(), "\n")
@@ -55,6 +59,6 @@ print(summary.head(), "\n")
 summary.to_csv("../order_summary.csv", index=False)
 print("Summary written to order_summary.csv")
 
-# Close connection
+
 conn.close()
 print("Connection closed.")
