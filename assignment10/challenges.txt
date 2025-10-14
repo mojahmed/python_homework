@@ -1,0 +1,5 @@
+I had trouble finding all 10 vulnerabilities at first.
+ My original XPath only matched 9 links because the last one was slightly different. 
+ I fixed it by using an XPath that selects all <a> tags whose href starts with 'https://owasp.org/Top10/A'.
+  Another small challenge was waiting for the page to fully load,
+   which I solved by adding a short time.sleep(5) before scraping.
